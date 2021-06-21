@@ -12,5 +12,9 @@
     "gatsby-plugin"
   ],
   "author": "Andres Alvarez Skinner <alvarezskinner@gmail.com>",
-  "license": "0BSD"
+  "license": "0BSD",
+  "dependencies": {
+    "@azure/msal-node": "^1.1.0",
+    "axios": "^0.21.1"
+  }
 }

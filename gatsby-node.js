@@ -1,14 +1,63 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.com/docs/node-apis/
- */
-// You can delete this file if you're not using it
+const msal = require("@azure/msal-node");
+const dataverse = require("./dataverse");
 
-/**
- * You can uncomment the following line to verify that
- * your plugin is being loaded in your site.
- *
- * See: https://www.gatsbyjs.com/docs/creating-a-local-plugin/#developing-a-local-plugin-that-is-outside-your-project
- */
-exports.onPreInit = () => console.log("Loaded gatsby-starter-plugin")
+let apiConfig = {};
+let tokenRequest = {};
+let getToken = new Function();
+
+exports.onPreBootstrap = async (args, pluginOptions) => {
+  const msalConfig = {
+    auth: {
+      clientId: pluginOptions.clientid,
+      authority: pluginOptions.authorityuri,
+      clientSecret: pluginOptions.secret,
+    },
+  };
+  tokenRequest = {
+    scopes: [`${pluginOptions.dataverseurl}/.default`],
+  };
+
+  apiConfig = {
+    uri: `${pluginOptions.dataverseurl}/api/data/${pluginOptions.apiversion}`,
+  };
+
+  cca = new msal.ConfidentialClientApplication(msalConfig);
+  getToken = async (tokenRequest) => {
+    return await cca.acquireTokenByClientCredential(tokenRequest);
+  };
+};
+
+exports.sourceNodes = async (
+  { actions, createContentDigest, createNodeId, getNodesByType },
+  options
+) => {
+  const { createNode } = actions;
+  const authResponse = await getToken(tokenRequest);
+  const response = await dataverse.retrieve(
+    apiConfig.uri,
+    authResponse.accessToken
+  );
+
+  options.entities.forEach(async (entity) => {
+    const url = `${apiConfig.uri}/${entity.name}?$select=${entity.fields.join(
+      ","
+    )}`;
+    const response = await dataverse.retrieve(url, authResponse.accessToken);
+
+    response.value.forEach((record) => {
+      createNode({
+        ...record,
+        id: createNodeId(`${entity}-${record[entity.primary]}`),
+        parent: null,
+        children: [],
+        internal: {
+          type: entity.name,
+          content: JSON.stringify(record),
+          contentDigest: createContentDigest(record),
+        },
+      });
+    });
+  });
+
+  return;
+};
