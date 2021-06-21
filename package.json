@@ -1,6 +1,6 @@
 {
   "name": "gatsby-source-dataverse",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Gatsby source plugin for building websites using Dataverse as a backend.",
   "main": "index.js",
   "scripts": {

@@ -15,7 +15,7 @@ Source plugin for pulling data from [Dataverse](https://powerplatform.microsoft.
 To install the package simply run the following command
 
 ```
-gatsby-source-dataverse
+npm install gatsby-source-dataverse
 ```
 
 After that include the plugin in your `gatsby-config.js` file and make sure to add the options needed for it to work.
