@@ -11,7 +11,17 @@ Source plugin for pulling data from [Dataverse](https://powerplatform.microsoft.
 
 ## Install
 
+To install the package simply run the following command
+
+```
+gatsby-source-dataverse
+```
+
+After that include the plugin in your `gatsby-config.js` file and make sure to add the options needed for it to work.
+
 ## Basic usage
+
+The plugin at this point will just source the entities (with the specific fields) to the graphql server for you to then decide how to use that data. Use with simple templates, query the data from the pages, whatever you prefer.
 
 ## Options
 

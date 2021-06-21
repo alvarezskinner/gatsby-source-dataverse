@@ -9,7 +9,8 @@
   },
   "keywords": [
     "gatsby",
-    "gatsby-plugin"
+    "gatsby-plugin",
+    "gatsby-source-plugin"
   ],
   "author": "Andres Alvarez Skinner <alvarezskinner@gmail.com>",
   "license": "0BSD",
