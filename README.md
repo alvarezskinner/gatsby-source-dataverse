@@ -8,6 +8,7 @@ Source plugin for pulling data from [Dataverse](https://powerplatform.microsoft.
 - [Basic usage](#basic-usage)
 - [Options](#options)
 - [Todo](#todo)
+- [How to query for data](#how-to-query-for-data)
 
 ## Install
 
@@ -50,6 +51,8 @@ module.exports = {
 }
 ```
 
+## How to query for data
+
 ## Todo
 
 - [x] Authentication using MSAL to Dataverse
@@ -58,3 +61,4 @@ module.exports = {
 - [ ] Paging
 - [ ] Filtering
 - [ ] Paging
+- [ ] Honouring security model
