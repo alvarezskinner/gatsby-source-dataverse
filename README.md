@@ -45,6 +45,6 @@ module.exports = {
 - [x] Authentication using MSAL to Dataverse
 - [x] Basic set of plugin options defined
 - [x] Basic retrieval
-- [] Paging
-- [] Filtering
-- [] Paging
+- [ ] Paging
+- [ ] Filtering
+- [ ] Paging
